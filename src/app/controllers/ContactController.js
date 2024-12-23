@@ -1,3 +1,4 @@
+const { v4 } = require('uuid');
 const ContactRepository = require('../repositories/ContactRepository'); // gerencia a lógica de acesso aos dados
 
 class ContactController {
@@ -22,7 +23,30 @@ class ContactController {
   }
 
   // criar um novo registro
-  store() {}
+  async store(request, response) {
+    const { name, email, phone, category_id } = request.body; // desestruturando tudo para manter o código mais legível
+
+    if (!name) {
+      return response.status(400).json({ error: 'Name is required' });
+    }
+
+    const emailExists = await ContactRepository.findByEmail(email);
+
+    if (emailExists) {
+      return response
+        .status(400) // 400: Bad Request
+        .json({ error: 'This email is already being used' });
+    }
+
+    const contact = await ContactRepository.create(
+      name,
+      email,
+      phone,
+      category_id,
+    );
+
+    response.status(201).json(contact); // 201: Created
+  }
 
   // editar um registro
   update() {}
