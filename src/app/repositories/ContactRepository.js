@@ -32,6 +32,27 @@ class ContactRepository {
     );
   }
 
+  findByEmail(email) {
+    return new Promise((resolve) =>
+      resolve(contacts.find((contact) => contact.email === email)),
+    );
+  }
+
+  create(name, email, phone, category_id) {
+    return new Promise((resolve) => {
+      const newContact = {
+        id: v4(),
+        name: name,
+        email: email,
+        phone: phone,
+        category_id: category_id, // uuid vai ser pra trabalhar com a tabela no banco de dados
+      };
+
+      contacts.push(newContact); // adiciona o contato criado ao array de contatos
+      resolve(newContact); // retorna o contato criado
+    });
+  }
+
   // simula o método de criação de um registro
   delete(id) {
     return new Promise((resolve) => {
