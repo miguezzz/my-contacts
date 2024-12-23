@@ -8,6 +8,8 @@ const express = require('express'); // como é um pacote de node modules, não p
 const routes = require('./routes');
 
 const app = express();
+
+app.use(express.json()); // habilita body parser para JSON
 app.use(routes); // usa as rotas definidas no arquivo routes.js
 
 app.listen(3000, () => console.log('Server is running on port 3000'));
