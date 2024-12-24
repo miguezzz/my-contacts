@@ -32,6 +32,7 @@ class ContactRepository {
     );
   }
 
+  // retorna um contato pelo email
   findByEmail(email) {
     return new Promise((resolve) =>
       resolve(contacts.find((contact) => contact.email === email)),

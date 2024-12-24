@@ -62,6 +62,15 @@ class ContactController {
         .json({ error: 'Cannot update. Contact not found' });
     }
 
+    const findByEmail = await ContactRepository.findByEmail(email);
+
+    // se encontrar um email cujo id seja diferente do id passado no parâmetro, retorna erro, pois foi passado um email para edição e o email já está sendo usado por outro contato (não pode haver dois contatos com o mesmo email)
+    if (findByEmail && findByEmail.id !== id) {
+      return response
+        .status(400)
+        .json({ error: 'This email is already being used' });
+    }
+
     const contact = await ContactRepository.update(
       id,
       name,
