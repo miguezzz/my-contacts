@@ -20,6 +20,8 @@ router.get('/', (response) => response.send('Hello World!'));
 router.get('/contacts', ContactController.index);
 router.get('/contacts/:id', ContactController.show);
 
+router.put('/contacts/:id', ContactController.update);
+
 router.post('/contacts', ContactController.store);
 
 router.delete('/contacts/:id', ContactController.delete);

@@ -53,6 +53,25 @@ class ContactRepository {
     });
   }
 
+  // simula o método de atualização de um registro
+  update(id, name, email, phone, category_id) {
+    return new Promise((resolve) => {
+      const updatedContact = {
+        id,
+        name,
+        email,
+        phone,
+        category_id,
+      };
+
+      contacts = contacts.map((contact) =>
+        contact.id === id ? updatedContact : contact,
+      ); // se o id do contato for igual ao id passado, retorna o contato atualizado, senão retorna o contato sem alterações e passa para o próximo contato
+
+      resolve(updatedContact); // retorna o contato atualizado
+    });
+  }
+
   // simula o método de criação de um registro
   delete(id) {
     return new Promise((resolve) => {
