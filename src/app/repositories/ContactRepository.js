@@ -39,6 +39,12 @@ class ContactRepository {
     );
   }
 
+  findByPhone(phone) {
+    return new Promise((resolve) =>
+      resolve(contacts.find((contact) => contact.phone === phone)),
+    );
+  }
+
   create(name, email, phone, category_id) {
     return new Promise((resolve) => {
       const newContact = {

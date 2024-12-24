@@ -71,6 +71,15 @@ class ContactController {
         .json({ error: 'This email is already being used' });
     }
 
+    const findByPhone = await ContactRepository.findByPhone(phone);
+
+    // se encontrar um telefone cujo id seja diferente do id passado no parâmetro, retorna erro, pois foi passado um telefone para edição e o telefone já está sendo usado por outro contato (não pode haver dois contatos com o mesmo telefone)
+    if (findByPhone && findByPhone.id !== id) {
+      return response
+        .status(400)
+        .json({ error: 'This phone is already being used' });
+    }
+
     const contact = await ContactRepository.update(
       id,
       name,
