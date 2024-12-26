@@ -1,4 +1,3 @@
-const { v4 } = require('uuid');
 const ContactRepository = require('../repositories/ContactRepository'); // gerencia a lógica de acesso aos dados
 
 class ContactController {
