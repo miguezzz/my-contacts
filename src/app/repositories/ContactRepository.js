@@ -1,50 +1,33 @@
 // repository pattern: é um padrão que abstrai a camada de acesso a dados, permitindo que a lógica de negócio da aplicação seja independente da forma como os dados são armazenados ou recuperados.
 
-const { v4 } = require('uuid');
-
 const db = require('../../database'); //arquivo index.js n precisa especificar
 
-let contacts = [
-  {
-    id: v4(),
-    name: 'Victor',
-    email: 'victor@mail.com',
-    phone: '123456789',
-    category_id: v4(), // uuid vai ser pra trabalhar com a tabela no banco de dados
-  },
-  {
-    id: v4(),
-    name: 'Marina',
-    email: 'marina@mail.com',
-    phone: '234567890',
-    category_id: v4(), // uuid vai ser pra trabalhar com a tabela no banco de dados
-  },
-];
-
 class ContactRepository {
-  // simula o método de busca de todos os registros
-  findAll() {
-    return new Promise((resolve) => resolve(contacts));
+  // método de busca de todos os registros da lista de contatos
+  async findAll() {
+    const rows = await db.query('SELECT * FROM contacts'); // array de objetos com os registros
+    return rows;
   }
 
-  // simula o método de busca de um registro
-  findById(id) {
-    return new Promise((resolve) =>
-      resolve(contacts.find((contact) => contact.id === id)),
-    );
+  // método de busca de um registro por id no bd
+  async findById(id) {
+    const [row] = await db.query('SELECT * FROM contacts WHERE id = $1', [id]); // pega apenas um elemento row, não um array.
+    return row;
   }
 
   // retorna um contato pelo email
-  findByEmail(email) {
-    return new Promise((resolve) =>
-      resolve(contacts.find((contact) => contact.email === email)),
-    );
+  async findByEmail(email) {
+    const [row] = await db.query('SELECT * FROM contacts WHERE email = $1', [
+      email,
+    ]);
+    return row;
   }
 
-  findByPhone(phone) {
-    return new Promise((resolve) =>
-      resolve(contacts.find((contact) => contact.phone === phone)),
-    );
+  // retorna um contato pelo telefone
+  async findByPhone(phone) {
+    const [row] = await db.query('SELECT * FROM contacts WHERE $1 = phone', [
+      phone,
+    ]);
   }
 
   async create(name, email, phone, category_id) {
