@@ -22,17 +22,26 @@ yarn install (ou npm install)
 ```
 3. Execute o container do postgres
 ```docker
-docker run --name my-contacts -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -p 5432:5432 -d postgres
+docker run --name pg -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -p 5432:5432 -d postgres
 ```
 
 4. Entre no cliente do postgres
 ```bash
-docker exec -it my-contacts psql -U root
+docker exec -it pg bash
 ```
 
-5. Crie a base de dados e insira os comandos (disponíveis no arquivo `schema.sql`) a seguir:
+5. Dentro do cliente do postgres, acesse o banco de dados
+```bash
+psql -U root
+```
+
+6. Crie a base de dados e insira os comandos (disponíveis no arquivo `schema.sql`) a seguir:
 ```sql
 CREATE DATABASE mycontacts;
+```
+Conecte-se à base de dados criada
+```sql
+\c mycontacts
 ```
 ```sql
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
