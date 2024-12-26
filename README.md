@@ -1,12 +1,14 @@
 # My Contacts
 
-API para armazenamento de contatos. Nela utilizaremos tecnologias como Docker, Node e PostgreSQL. Futuramente, seu front-end será implementado com React e React Native (para mobile).
+API para armazenamento de contatos. Nela, utilizaremos tecnologias como Docker, Node e PostgreSQL. Futuramente, seu front-end será implementado com React e React Native (para mobile).
 
 ## Requisitos
 
 - yarn (ou npm)
 - Node.js
 - Docker
+- nodemon (dev dependency)
+- biome (dev dependency)
 
 ## Instalação
 
@@ -30,7 +32,7 @@ docker run --name pg -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -p 5432:543
 docker exec -it pg bash
 ```
 
-5. Dentro do cliente do postgres, acesse o banco de dados
+5. Dentro do cliente do PostgreSQL, acesse o banco de dados a partir do username definido anteriormente (no exemplo, "root")
 ```bash
 psql -U root
 ```
@@ -39,19 +41,22 @@ psql -U root
 ```sql
 CREATE DATABASE mycontacts;
 ```
-Conecte-se à base de dados criada
+7. Conecte-se à base de dados criada
 ```sql
 \c mycontacts
 ```
+8. Crie a extensão para geração dos UUIDs
 ```sql
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 ```
+9. Crie a tabela de categorias de contatos
 ```sql
 CREATE TABLE IF NOT EXISTS categories (
   id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
   name VARCHAR NOT NULL
 );
 ```
+10. Crie a tabela de contatos
 ```sql
 CREATE TABLE IF NOT EXISTS contacts (
   id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
@@ -62,7 +67,7 @@ CREATE TABLE IF NOT EXISTS contacts (
   FOREIGN KEY(category_id) REFERENCES categories(id)
 );
 ```
-7. Execute o servidor
+11. Execute o servidor
 ```bash
 yarn dev (ou npm run dev)
 ```
