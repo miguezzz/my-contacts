@@ -3,10 +3,10 @@ const { Client } = require('pg');
 
 const client = new Client({
   host: 'localhost',
-  port: 5432,
+  port: 5432, // porta disponibilizada na máquina que redireciona para a porta do postgres no container
   user: 'root',
   password: 'root',
-  database: 'mycontacts',
+  database: 'mycontacts', // nome do banco de dados
 });
 
 client.connect();
