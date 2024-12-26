@@ -1,6 +1,6 @@
 # My Contacts
 
-API para armazenamento de contatos.
+API para armazenamento de contatos. Nela utilizaremos tecnologias como Docker, Node e PostgreSQL. Futuramente, seu front-end será implementado com React e React Native (para mobile).
 
 ## Requisitos
 
