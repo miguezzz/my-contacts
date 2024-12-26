@@ -2,8 +2,7 @@
 
 const { v4 } = require('uuid');
 
-const pg = require('../../database'); //arquivo index.js n precisa especificar
-const e = require('express');
+const db = require('../../database'); //arquivo index.js n precisa especificar
 
 let contacts = [
   {
