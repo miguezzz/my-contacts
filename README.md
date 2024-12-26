@@ -62,5 +62,8 @@ CREATE TABLE IF NOT EXISTS contacts (
   FOREIGN KEY(category_id) REFERENCES categories(id)
 );
 ```
-
+7. Execute o servidor
+```bash
+yarn dev (ou npm run dev)
+```
 
