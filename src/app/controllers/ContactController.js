@@ -30,12 +30,19 @@ class ContactController {
       return response.status(400).json({ error: 'Name is required' });
     }
 
-    const contactExists = await ContactRepository.findByEmail(email);
+    const emailExists = await ContactRepository.findByEmail(email);
+    const phoneExists = await ContactRepository.findByPhone(phone);
 
-    if (contactExists) {
+    if (emailExists) {
       return response
         .status(400) // 400: Bad Request
         .json({ error: 'This email is already being used' });
+    }
+
+    if (phoneExists) {
+      return response
+        .status(400) // 400: Bad Request
+        .json({ error: 'This phone is already being used' });
     }
 
     const contact = await ContactRepository.create(

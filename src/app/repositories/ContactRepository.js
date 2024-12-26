@@ -11,7 +11,7 @@ class ContactRepository {
 
   // método de busca de um registro por id no bd
   async findById(id) {
-    const [row] = await db.query('SELECT * FROM contacts WHERE id = $1', [id]); // pega apenas um elemento row, não um array.
+    const [row] = await db.query('SELECT * FROM contacts WHERE id = $1', [id]); // desestrutura o array de rows e pega a primeira posição (que é o registro)
     return row;
   }
 
@@ -28,6 +28,7 @@ class ContactRepository {
     const [row] = await db.query('SELECT * FROM contacts WHERE $1 = phone', [
       phone,
     ]);
+    return row;
   }
 
   async create(name, email, phone, category_id) {
