@@ -2,6 +2,9 @@
 
 const { v4 } = require('uuid');
 
+const pg = require('../../database'); //arquivo index.js n precisa especificar
+const e = require('express');
+
 let contacts = [
   {
     id: v4(),
@@ -45,19 +48,21 @@ class ContactRepository {
     );
   }
 
-  create(name, email, phone, category_id) {
-    return new Promise((resolve) => {
-      const newContact = {
-        id: v4(),
-        name: name,
-        email: email,
-        phone: phone,
-        category_id: category_id, // uuid vai ser pra trabalhar com a tabela no banco de dados
-      };
-
-      contacts.push(newContact); // adiciona o contato criado ao array de contatos
-      resolve(newContact); // retorna o contato criado
-    });
+  async create(name, email, phone, category_id) {
+    // desestrtura o array de rows e pega a primeira posição (que é o registro inserido)
+    const [row] = await db.query(
+      `
+      INSERT INTO contacts(name, email, phone, category_id)
+      VALUES($1, $2, $3, $4)
+      RETURNING *
+      `,
+      [name, email, phone, category_id],
+    );
+    // insert into contacts(colunas que se deseja passar argumentos)
+    // os $ servem para prevenir o SQL injection.
+    // os valores passados no array serão passados, em ordem, para os values
+    // o RETURNING * retorna o registro inserido (já que no insert não é retornado nada e queremos retornar o registro inserido no controller)
+    return row;
   }
 
   // simula o método de atualização de um registro
