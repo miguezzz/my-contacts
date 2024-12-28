@@ -1,6 +1,7 @@
 const { Router } = require('express');
 
 const ContactController = require('./app/controllers/ContactController');
+const CategoryController = require('./app/controllers/CategoryController');
 
 const router = Router();
 
@@ -21,11 +22,15 @@ router.get('/', (response) => response.send('Hello World!'));
 router.get('/contacts', ContactController.index);
 router.get('/contacts/:id', ContactController.show);
 
-// rotas put
-router.put('/contacts/:id', ContactController.update);
+router.get('/categories', CategoryController.index);
 
 // rotas post
 router.post('/contacts', ContactController.store);
+
+router.post('/categories', CategoryController.store);
+
+// rotas put
+router.put('/contacts/:id', ContactController.update);
 
 // rotas delete
 router.delete('/contacts/:id', ContactController.delete);
