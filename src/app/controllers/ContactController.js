@@ -102,18 +102,10 @@ class ContactController {
   async delete(request, response) {
     const { id } = request.params;
 
-    const contactExists = await ContactRepository.findById(id);
-
-    if (!contactExists) {
-      return response
-        .status(404)
-        .json({ error: 'Cannot delete. Contact not found' });
-    }
-
     await ContactRepository.delete(id);
-    response.sendStatus(204); // resposta sem conteúdo
+    response.sendStatus(204); // 204: no content
   }
 }
 
-// Singleton
-module.exports = new ContactController(); // exporta uma instância única do controller
+// Singleton (exporta uma instância única do controller)
+module.exports = new ContactController();

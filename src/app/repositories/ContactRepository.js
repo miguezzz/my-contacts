@@ -55,6 +55,7 @@ class ContactRepository {
 
   // método de atualização de um registro no banco
   async update(id, name, email, phone, category_id) {
+    // cuidado pra n esquecer o WHERE
     const [row] = await db.query(
       // pega o primeiro elemento do array com desestruturação
       `
@@ -69,13 +70,16 @@ class ContactRepository {
     return row;
   }
 
-  // deleta um contato no banco
-  delete(id) {
-    return new Promise((resolve) => {
-      contacts = contacts.filter((contact) => contact.id !== id);
+  // deleta um contato no banco -> se não usar where, todas as linhas são deletadas!
+  async delete(id) {
+    const deleteOp = await db.query(
+      `
+      DELETE FROM contacts WHERE id = $1
+      `,
+      [id],
+    );
 
-      resolve();
-    });
+    return deleteOp;
   }
 }
 
