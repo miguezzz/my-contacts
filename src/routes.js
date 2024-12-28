@@ -32,7 +32,11 @@ router.post('/categories', CategoryController.store);
 // rotas put
 router.put('/contacts/:id', ContactController.update);
 
+router.put('/categories/:id', CategoryController.update);
+
 // rotas delete
 router.delete('/contacts/:id', ContactController.delete);
+
+router.delete('/contacts/:id', CategoryController.delete);
 
 module.exports = router;
