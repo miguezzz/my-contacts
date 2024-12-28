@@ -16,14 +16,18 @@ router.get(
   ContactController.index),;
 */
 
+// rotas get
 router.get('/', (response) => response.send('Hello World!'));
 router.get('/contacts', ContactController.index);
 router.get('/contacts/:id', ContactController.show);
 
+// rotas put
 router.put('/contacts/:id', ContactController.update);
 
+// rotas post
 router.post('/contacts', ContactController.store);
 
+// rotas delete
 router.delete('/contacts/:id', ContactController.delete);
 
 module.exports = router;

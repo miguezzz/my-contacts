@@ -4,8 +4,13 @@ const db = require('../../database'); //arquivo index.js n precisa especificar
 
 class ContactRepository {
   // método de busca de todos os registros da lista de contatos
-  async findAll() {
-    const rows = await db.query('SELECT * FROM contacts ORDER BY name ASC'); // array de objetos com os registros
+  async findAll(orderBy) {
+    const direction = orderBy === 'desc' ? 'DESC' : 'ASC'; // se o orderBy for desc, a direção é DESC, senão é ASC
+
+    const rows = await db.query(
+      `SELECT * FROM contacts ORDER BY name ${direction}`, // direction previne SQL injection
+    ); // retorna array de objetos com os registros
+
     return rows;
   }
 
