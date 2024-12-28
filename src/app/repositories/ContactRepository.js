@@ -5,7 +5,7 @@ const db = require('../../database'); //arquivo index.js n precisa especificar
 class ContactRepository {
   // método de busca de todos os registros da lista de contatos
   async findAll() {
-    const rows = await db.query('SELECT * FROM contacts'); // array de objetos com os registros
+    const rows = await db.query('SELECT * FROM contacts ORDER BY name ASC'); // array de objetos com os registros
     return rows;
   }
 
