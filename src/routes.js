@@ -37,6 +37,6 @@ router.put('/categories/:id', CategoryController.update);
 // rotas delete
 router.delete('/contacts/:id', ContactController.delete);
 
-router.delete('/contacts/:id', CategoryController.delete);
+router.delete('/categories/:id', CategoryController.delete);
 
 module.exports = router;

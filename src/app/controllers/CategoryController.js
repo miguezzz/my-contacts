@@ -50,7 +50,13 @@ class CategoryController {
     return response.json(updatedCategory);
   }
 
-  // async delete(request, response) {}
+  async delete(request, response) {
+    const { id } = request.params;
+
+    // por enquanto, quero apenas retornar no content, independentemente de ter removido ou não (caso n exista)
+    await CategoryRepository.delete({ id });
+    response.sendStatus(204); // 204: no content
+  }
 }
 
 module.exports = new CategoryController();
