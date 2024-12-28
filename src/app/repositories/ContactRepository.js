@@ -53,26 +53,23 @@ class ContactRepository {
     return row;
   }
 
-  // simula o método de atualização de um registro
-  update(id, name, email, phone, category_id) {
-    return new Promise((resolve) => {
-      const updatedContact = {
-        id,
-        name,
-        email,
-        phone,
-        category_id,
-      };
+  // método de atualização de um registro no banco
+  async update(id, name, email, phone, category_id) {
+    const [row] = await db.query(
+      // pega o primeiro elemento do array com desestruturação
+      `
+      UPDATE contacts
+      SET name = $1, email = $2, phone = $3, category_id = $4
+      WHERE id = $5
+      RETURNING *
+      `, // precisa do where senão alteramos TODAS as linhas da tabela
+      [name, email, phone, category_id, id],
+    );
 
-      contacts = contacts.map((contact) =>
-        contact.id === id ? updatedContact : contact,
-      ); // se o id do contato for igual ao id passado, retorna o contato atualizado, senão retorna o contato sem alterações e passa para o próximo contato
-
-      resolve(updatedContact); // retorna o contato atualizado
-    });
+    return row;
   }
 
-  // simula o método de criação de um registro
+  // deleta um contato no banco
   delete(id) {
     return new Promise((resolve) => {
       contacts = contacts.filter((contact) => contact.id !== id);
