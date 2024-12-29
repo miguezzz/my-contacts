@@ -66,10 +66,10 @@ class CategoryRepository {
 
   // deleta categoria
   // Diferente de um comando SELECT, um DELETE não retorna o conteúdo das linhas deletadas, apenas informa se a operação foi bem-sucedida e quantas linhas foram afetadas.
-  async delete({ id }) {
+  async delete(id) {
     const deleteOp = await db.query(
       `
-      DELETE FROM contacts WHERE id = $1
+      DELETE FROM categories WHERE id = $1
       `,
       [id],
     );

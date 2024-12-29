@@ -65,7 +65,7 @@ class CategoryController {
     const { id } = request.params;
 
     // por enquanto, quero apenas retornar no content, independentemente de ter removido ou não (caso n exista)
-    await CategoryRepository.delete({ id });
+    await CategoryRepository.delete(id);
     response.sendStatus(204); // 204: no content
   }
 }
