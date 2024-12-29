@@ -8,8 +8,14 @@ class ContactRepository {
     const direction = orderBy === 'desc' ? 'DESC' : 'ASC'; // se o orderBy for desc, a direção é DESC, senão é ASC
 
     const rows = await db.query(
-      `SELECT * FROM contacts ORDER BY name ${direction}`, // direction previne SQL injection
-    ); // retorna array de objetos com os registros
+      // retorna array de objetos com os registros
+      `
+      SELECT contacts.*, categories.name AS category_name
+      FROM contacts
+      LEFT JOIN categories ON contacts.category_id = categories.id
+      ORDER BY contacts.name ${direction}
+      `, // direction previne SQL injection
+    );
 
     return rows;
   }
