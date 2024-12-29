@@ -13,6 +13,18 @@ class CategoryRepository {
     return rows;
   }
 
+  // procura categoria pelo id
+  async findById({ id }) {
+    const [row] = await db.query(
+      `
+        SELECT * FROM categories where id = $1
+      `,
+      [id],
+    );
+
+    return row;
+  }
+
   // procura categoria pelo nome
   async findByName(name) {
     // desestrutura o array de rows (vindo de database/index.js partindo do db.query) e pega a primeira posição (que é o registro desejado)

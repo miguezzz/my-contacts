@@ -23,6 +23,7 @@ router.get('/contacts', ContactController.index);
 router.get('/contacts/:id', ContactController.show);
 
 router.get('/categories', CategoryController.index);
+router.get('/categories/:id', CategoryController.show);
 
 // rotas post
 router.post('/contacts', ContactController.store);
