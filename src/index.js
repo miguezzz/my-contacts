@@ -4,6 +4,7 @@
 // hooks: comandos executados em um dado momento predefinido. Ex: pre-commit, pre-push, pre-rebase, etc.
 
 const express = require('express'); // como é um pacote de node modules, não precisa do caminho relativo
+require('express-async-errors');
 
 const routes = require('./routes');
 
@@ -11,5 +12,14 @@ const app = express();
 
 app.use(express.json()); // habilita body parser para JSON
 app.use(routes); // usa as rotas definidas no arquivo routes.js
+
+// Error Handler: manipulador de erros (middleware)
+// evita proliferação de try-catch em todos os controllers
+// o quarto argumento (error) define que é um middleware de tratamento de erros. ele PRECISA ter 4 argumentos
+app.use((error, request, response, next) => {
+  // imprime o erro no console e retorna apenas status 500 (erro interno do servidor)
+  console.log(error);
+  response.sendStatus(500);
+});
 
 app.listen(3000, () => console.log('Server is running on port 3000'));
