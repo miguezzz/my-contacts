@@ -22,7 +22,15 @@ class ContactRepository {
 
   // método de busca de um registro por id no bd
   async findById(id) {
-    const [row] = await db.query('SELECT * FROM contacts WHERE id = $1', [id]); // desestrutura o array de rows e pega a primeira posição (que é o registro)
+    const [row] = await db.query(
+      `
+      SELECT contacts.*, categories.name AS category_name
+      FROM contacts
+      LEFT JOIN categories ON contacts.category_id = categories.id
+      WHERE contacts.id = $1
+      `,
+      [id],
+    ); // desestrutura o array de rows e pega a primeira posição (que é o registro)
     return row;
   }
 
