@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   margin-top: 32px;
-`
+`;
 export const Header = styled.header`
   display: flex;
   align-items: center;
@@ -25,6 +25,25 @@ export const Header = styled.header`
     &:hover {
       background: ${({ theme }) => theme.colors.primary.main};
       color: #fff;
+    }
+  }
+`;
+
+export const ListContainer = styled.div`
+  margin-top: 24px;
+
+  header {
+    button {
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+    }
+
+    span {
+      margin-right: 8px;
+      font-weight: bold;
+      color: ${({ theme }) => theme.colors.primary.main};
     }
   }
 `;
