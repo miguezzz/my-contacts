@@ -5,7 +5,6 @@ export const Container = styled.div`
 `;
 
 export const InputSearchContainer = styled.div`
-  margin-top: 48px;
   width: 100%;
 
   input {
@@ -27,6 +26,7 @@ export const InputSearchContainer = styled.div`
 `;
 
 export const Header = styled.header`
+  margin-top: 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
