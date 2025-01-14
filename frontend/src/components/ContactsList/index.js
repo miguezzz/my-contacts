@@ -64,6 +64,28 @@ export default function ContactsList() {
             </button>
           </div>
         </Card>
+        <Card>
+          <class className="info">
+            <div className="contact-name">
+              <strong>Victor Miguez</strong>
+              <small>instagram</small>
+            </div>
+            <span>victor@dev.com</span>
+            <span>(21) 99999-9999</span>
+          </class>
+
+          <div className="actions">
+            {/* edit vai ser outra page */}
+            <a href="/">
+              <img src={edit} alt="Edit" />
+            </a>
+
+            {/* delete vai ser um button com confirm */}
+            <button type="button">
+              <img src={trash} alt="Delete" />
+            </button>
+          </div>
+        </Card>
       </ListContainer>
     </Container>
   );
