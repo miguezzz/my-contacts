@@ -6,6 +6,7 @@ export default {
       light: '#6674F4',
       main: '#5061FC',
       dark: '#3346F0',
+      darker: '#091be1',
     },
     gray: {
       900: '#222222',
