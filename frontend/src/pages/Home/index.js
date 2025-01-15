@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import {
   Container,
   InputSearchContainer,
@@ -19,7 +21,7 @@ export default function ContactsList() {
 
       <Header>
         <strong>3 Contatos</strong>
-        <a href="/">Adicionar Contato</a>
+        <Link to="/new">Adicionar Contato</Link>
       </Header>
 
       <ListContainer>
@@ -31,64 +33,20 @@ export default function ContactsList() {
         </header>
 
         <Card>
-          <class className="info">
+          <div className="info">
             <div className="contact-name">
               <strong>Victor Miguez</strong>
               <small>instagram</small>
             </div>
             <span>victor@dev.com</span>
             <span>(21) 99999-9999</span>
-          </class>
-
-          <div className="actions">
-            {/* edit vai ser outra page */}
-            <a href="/">
-              <img src={edit} alt="Edit" />
-            </a>
-
-            {/* delete vai ser um button com confirm */}
-            <button type="button">
-              <img src={trash} alt="Delete" />
-            </button>
           </div>
-        </Card>
-        <Card>
-          <class className="info">
-            <div className="contact-name">
-              <strong>Victor Miguez</strong>
-              <small>instagram</small>
-            </div>
-            <span>victor@dev.com</span>
-            <span>(21) 99999-9999</span>
-          </class>
 
           <div className="actions">
             {/* edit vai ser outra page */}
-            <a href="/">
+            <Link to="/edit/123">
               <img src={edit} alt="Edit" />
-            </a>
-
-            {/* delete vai ser um button com confirm */}
-            <button type="button">
-              <img src={trash} alt="Delete" />
-            </button>
-          </div>
-        </Card>
-        <Card>
-          <class className="info">
-            <div className="contact-name">
-              <strong>Victor Miguez</strong>
-              <small>instagram</small>
-            </div>
-            <span>victor@dev.com</span>
-            <span>(21) 99999-9999</span>
-          </class>
-
-          <div className="actions">
-            {/* edit vai ser outra page */}
-            <a href="/">
-              <img src={edit} alt="Edit" />
-            </a>
+            </Link>
 
             {/* delete vai ser um button com confirm */}
             <button type="button">
