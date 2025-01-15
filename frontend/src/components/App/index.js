@@ -1,7 +1,5 @@
 import { ThemeProvider } from 'styled-components';
 
-import { Link } from 'react-router-dom';
-
 import GlobalStyles from '../../assets/styles/global';
 import defaultTheme from '../../assets/styles/themes/default';
 
