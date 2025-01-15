@@ -16,7 +16,7 @@ import Modal from '../../components/Modal';
 export default function ContactsList() {
   return (
     <Container>
-      <Modal />
+      <Modal danger />
 
       <InputSearchContainer>
         <input type="text" placeholder="Pesquisar Contato" />
