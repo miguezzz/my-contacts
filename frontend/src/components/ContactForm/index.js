@@ -9,7 +9,10 @@ export default function ContactForm({ buttonLabel }) {
   return (
     <Form>
       <FormGroup>
-        <Input placeholder="Nome" />
+        <Input
+          placeholder="Nome"
+          onChange={(e) => console.log(e.target.value)}
+        />
       </FormGroup>
 
       <FormGroup error="O campo de e-mail é obrigatório">
