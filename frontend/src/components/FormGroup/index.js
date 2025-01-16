@@ -1,5 +1,10 @@
 import { Container } from './styles';
 
-export default function FormGroup({ children }) {
-  return <Container>{children}</Container>;
+export default function FormGroup({ children, error }) {
+  return (
+    <Container>
+      {children}
+      {error && <small>{error}</small>}
+    </Container>
+  );
 }
