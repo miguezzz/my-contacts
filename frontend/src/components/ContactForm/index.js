@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Form, ButtonContainer } from './styles';
 
 import FormGroup from '../FormGroup';
@@ -6,12 +8,16 @@ import Select from '../Select';
 import Button from '../Button';
 
 export default function ContactForm({ buttonLabel }) {
+  const [name, setName] = useState('');
+
   return (
     <Form>
       <FormGroup>
+        {/* O valor do input é controlado pelo estado name */}
         <Input
+          value={name}
           placeholder="Nome"
-          onChange={(e) => console.log(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
         />
       </FormGroup>
 
