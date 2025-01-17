@@ -25,7 +25,7 @@ export default function ContactForm({ buttonLabel }) {
         ...prevErrors,
         {
           field: 'name',
-          message: 'Campo obrigatório',
+          message: 'Campo Nome é obrigatório',
         },
       ]);
     } else {
@@ -64,7 +64,9 @@ export default function ContactForm({ buttonLabel }) {
     }
   }
 
-  console.log(errors);
+  function getErrorMessageByFieldName(fieldName) {
+    return errors.find((error) => error.field === fieldName)?.message;
+  }
 
   function handleSubmit(event) {
     event.preventDefault(); // previne o comportamento padrão do formulário (recarregar a página)
@@ -79,16 +81,22 @@ export default function ContactForm({ buttonLabel }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('name')}>
         {/* O valor do input é controlado pelo estado name */}
-        <Input placeholder="Nome" value={name} onChange={handleNameChange} />
+        <Input
+          placeholder="Nome"
+          value={name}
+          onChange={handleNameChange}
+          error={getErrorMessageByFieldName('name')}
+        />
       </FormGroup>
 
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('email')}>
         <Input
           placeholder="E-mail"
           value={email}
           onChange={handleEmailChange}
+          error={getErrorMessageByFieldName('email')}
         />
       </FormGroup>
 
