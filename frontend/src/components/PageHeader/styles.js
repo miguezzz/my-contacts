@@ -4,11 +4,12 @@ export const Container = styled.header`
   margin-bottom: 24px;
 
   a {
+    width: fit-content;
     text-decoration: none;
-    display: inline-block;
+    display: flex;
     align-items: center;
-    justify-content: left;
-
+    justify-content: flex-start;
+    margin-bottom: 2px;
 
     img {
       margin-right: 8px;
