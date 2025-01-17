@@ -5,9 +5,10 @@ export const Container = styled.header`
 
   a {
     text-decoration: none;
-    display: flex;
+    display: inline-block;
     align-items: center;
     justify-content: left;
+
 
     img {
       margin-right: 8px;
