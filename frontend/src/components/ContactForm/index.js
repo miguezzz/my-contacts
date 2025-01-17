@@ -9,41 +9,51 @@ import Button from '../Button';
 
 export default function ContactForm({ buttonLabel }) {
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [category, setCategory] = useState('');
 
-  // const emailInput = document.getElementById('input-email');
-  // nao se pode acessar o DOM diretamente no react por causa da virtual DOM
-  // o react nao sabe que o DOM foi alterado e nao atualiza a pagina
+  function handleSubmit(event) {
+    event.preventDefault(); // previne o comportamento padrão do formulário (recarregar a página)
 
-  const emailInput = useRef(null);
-
-  function handleClick() {
-    console.log(emailInput.current.value);
+    console.log({
+      name,
+      email,
+      phone,
+      category,
+    });
   }
 
   return (
-    <Form>
-      <button type="button" onClick={handleClick}>
-        Logar emailInput
-      </button>
+    <Form onSubmit={handleSubmit}>
       <FormGroup>
         {/* O valor do input é controlado pelo estado name */}
         <Input
-          value={name}
           placeholder="Nome"
+          value={name}
           onChange={(e) => setName(e.target.value)}
         />
       </FormGroup>
 
       <FormGroup>
-        <Input placeholder="E-mail" ref={emailInput} />
+        <Input
+          placeholder="E-mail"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </FormGroup>
 
       <FormGroup>
-        <Input placeholder="Telefone" />
+        <Input
+          placeholder="Telefone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
       </FormGroup>
 
       <FormGroup>
-        <Select>
+        <Select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="">Categoria</option>
           <option value="instagram">Instagram</option>
           <option value="faculdade">Faculdade</option>
         </Select>
