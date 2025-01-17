@@ -9,63 +9,37 @@ import Input from '../Input';
 import Select from '../Select';
 import Button from '../Button';
 
+import useErrors from '../../hooks/useErrors';
+
 export default function ContactForm({ buttonLabel }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [category, setCategory] = useState('');
-  const [errors, setErrors] = useState([]);
+
+  const { setError, removeError, getErrorMessageByFieldName } = useErrors();
 
   function handleNameChange(event) {
     setName(event.target.value);
 
-    // usamos o event.target.value ao invés de name, por conta da assincronicidade do setState
     if (!event.target.value) {
-      setErrors((prevErrors) => [
-        ...prevErrors,
-        {
-          field: 'name',
-          message: 'Campo Nome é obrigatório',
-        },
-      ]);
+      setError({ field: 'name', message: 'Nome obrigatório' });
     } else {
-      // se o campo name estiver preenchido, queremos remover erro com field name
-      // filtra todos os erros cujo field seja diferente de name
-      setErrors((prevErrors) =>
-        prevErrors.filter((error) => error.field !== 'name'),
-      );
+      removeError('name');
     }
   }
 
   function handleEmailChange(event) {
     setEmail(event.target.value);
 
-    // se o email for invalido
     if (event.target.value && !isEmailValid(event.target.value)) {
-      const errorAlreadyExists = errors.find(
-        (error) => error.field === 'email',
-      );
-
-      if (errorAlreadyExists) {
-        return;
-      }
-
-      setErrors((prevErrors) => [
-        ...prevErrors,
-        {
-          field: 'email',
-          message: 'Email inválido',
-        },
-      ]);
+      setError({
+        field: 'email',
+        message: 'Email inválido',
+      });
     } else {
-      setErrors((prevErrors) =>
-        prevErrors.filter((error) => error.field !== 'email'),
-      );
+      removeError('email');
     }
-  }
-
-  function getErrorMessageByFieldName(fieldName) {
-    return errors.find((error) => error.field === fieldName)?.message;
   }
 
   function handleSubmit(event) {
