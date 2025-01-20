@@ -11,6 +11,11 @@ const routes = require('./routes');
 const app = express();
 
 app.use(express.json()); // habilita body parser para JSON
+// middleware para permitir que a aplicação seja acessada pelo front-end (CORS)
+app.use((request, response, next) => {
+  response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  next();
+});
 app.use(routes); // usa as rotas definidas no arquivo routes.js
 
 // Error Handler: manipulador de erros (middleware)
@@ -22,4 +27,4 @@ app.use((error, request, response, next) => {
   response.sendStatus(500);
 });
 
-app.listen(3000, () => console.log('Server is running on port 3000'));
+app.listen(3001, () => console.log('Server is running on port 3000'));
