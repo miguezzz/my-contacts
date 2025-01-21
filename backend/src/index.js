@@ -10,7 +10,7 @@ const errorHandler = require('./app/middlewares/errorHandler');
 const app = express();
 
 app.use(express.json()); // habilita body parser para JSON
-app.use(cors); // usa o middleware CORS para permitir que a aplicação seja acessada pelo front-end
+app.use(cors); // usa o middleware CORS para permitir que a aplicação seja acessada pelo front-end e bloquear acessos de outros domínios e métodos não permitidos
 app.use(routes); // usa as rotas definidas no arquivo routes.js
 app.use(errorHandler); // middleware de tratamento de erros
 

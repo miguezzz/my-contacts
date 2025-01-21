@@ -59,7 +59,13 @@ export default function ContactsList() {
   );
 }
 
-fetch('http://localhost:3001/contacts')
+fetch('http://localhost:3001/contacts', {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Access-Token': 'token',
+  },
+})
   .then((response) => {
     console.log(response);
   })
