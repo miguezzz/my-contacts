@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -12,18 +12,30 @@ import {
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
-import { useEffect } from 'react';
+
+import Loader from '../../components/Loader';
 
 export default function ContactsList() {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderBy] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-  const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  const filteredContacts = useMemo(
+    () =>
+      contacts.filter((contact) =>
+        // se searchTerm for '', filteredContacts será um array com todos os contatos
+        contact.name
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()),
+      ),
+    // faz a filtragem de contatos novamente apenas se mudar os contacts ou o searchTerm
+    [contacts, searchTerm],
   );
 
   useEffect(() => {
+    setIsLoading(true);
+
     fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
       .then(async (response) => {
         const json = await response.json();
@@ -31,7 +43,8 @@ export default function ContactsList() {
       })
       .catch((error) => {
         console.log(error);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }, [orderBy]); // dependency array vazio para executar apenas uma vez
 
   function handleToggleOrderBy() {
@@ -44,6 +57,8 @@ export default function ContactsList() {
 
   return (
     <Container>
+      {isLoading && <Loader />}
+
       <InputSearchContainer>
         <input
           value={searchTerm}
