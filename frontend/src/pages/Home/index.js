@@ -16,9 +16,10 @@ import { useEffect } from 'react';
 
 export default function ContactsList() {
   const [contacts, setContacts] = useState([]); // inicializa com array vazio
+  const [orderBy, setOrderBy] = useState('asc');
 
   useEffect(() => {
-    fetch('http://localhost:3001/contacts')
+    fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
       .then(async (response) => {
         const json = await response.json();
         setContacts(json);
@@ -26,7 +27,11 @@ export default function ContactsList() {
       .catch((error) => {
         console.log(error);
       });
-  }, []); // dependency array vazio para executar apenas uma vez
+  }, [orderBy]); // dependency array vazio para executar apenas uma vez
+
+  function handleToggleOrderBy() {
+    setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
+  }
 
   return (
     <Container>
@@ -42,8 +47,8 @@ export default function ContactsList() {
         <Link to="/new">Adicionar Contato</Link>
       </Header>
 
-      <ListHeader>
-        <button type="button">
+      <ListHeader orderBy={orderBy}>
+        <button type="button" onClick={handleToggleOrderBy}>
           <span>Nome</span>
           <img src={arrow} alt="Arrow" />
         </button>

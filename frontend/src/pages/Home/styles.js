@@ -68,6 +68,11 @@ export const ListHeader = styled.div`
       font-weight: bold;
       color: ${({ theme }) => theme.colors.primary.main};
     }
+
+    img {
+      transform: ${(props) => (props.orderBy === 'asc' ? 'rotate(180deg)' : 'rotate(0deg)')};
+      transition: transform 0.2s ease-in;
+    }
 `;
 
 export const Card = styled.div`
