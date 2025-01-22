@@ -2,7 +2,11 @@ import ReactDom from 'react-dom';
 
 import { Overlay } from './styles';
 
-export default function Loader() {
+export default function Loader({ isLoading }) {
+  if (!isLoading) {
+    return null;
+  }
+
   return ReactDom.createPortal(
     <Overlay>
       <div className="loader">

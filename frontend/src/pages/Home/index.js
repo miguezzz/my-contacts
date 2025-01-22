@@ -57,7 +57,7 @@ export default function ContactsList() {
 
   return (
     <Container>
-      {isLoading && <Loader />}
+      <Loader isLoading={isLoading} />
 
       <InputSearchContainer>
         <input
