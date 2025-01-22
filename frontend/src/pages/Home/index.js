@@ -45,7 +45,7 @@ export default function ContactsList() {
         console.log(error);
       })
       .finally(() => setIsLoading(false));
-  }, [orderBy]); // dependency array vazio para executar apenas uma vez
+  }, [orderBy]); // dependency array monitorando a mudança de ordenação
 
   function handleToggleOrderBy() {
     setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
