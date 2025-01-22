@@ -34,17 +34,24 @@ export default function ContactsList() {
   );
 
   useEffect(() => {
-    setIsLoading(true);
+    async function loadContacts() {
+      setIsLoading(true);
 
-    fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
-      .then(async (response) => {
+      const response = await fetch(
+        `http://localhost:3001/contacts?orderBy=${orderBy}`,
+      );
+
+      try {
         const json = await response.json();
         setContacts(json);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => setIsLoading(false));
+      } catch (error) {
+        console.log('error', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadContacts();
   }, [orderBy]); // dependency array monitorando a mudança de ordenação
 
   function handleToggleOrderBy() {
