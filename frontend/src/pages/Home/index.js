@@ -5,7 +5,7 @@ import {
   Container,
   InputSearchContainer,
   Header,
-  ListContainer,
+  ListHeader,
   Card,
 } from './styles';
 
@@ -42,40 +42,36 @@ export default function ContactsList() {
         <Link to="/new">Adicionar Contato</Link>
       </Header>
 
-      <ListContainer>
-        <header>
-          <button type="button">
-            <span>Nome</span>
-            <img src={arrow} alt="Arrow" />
-          </button>
-        </header>
+      <ListHeader>
+        <button type="button">
+          <span>Nome</span>
+          <img src={arrow} alt="Arrow" />
+        </button>
+      </ListHeader>
 
-        {contacts.map((contact) => (
-          <Card key={contact.id}>
-            <div className="info">
-              <div className="contact-name">
-                <strong>{contact.name}</strong>
-                {contact.category_name && (
-                  <small>{contact.category_name}</small>
-                )}
-              </div>
-              <span>{contact.email}</span>
-              <span>{contact.phone}</span>
+      {contacts.map((contact) => (
+        <Card key={contact.id}>
+          <div className="info">
+            <div className="contact-name">
+              <strong>{contact.name}</strong>
+              {contact.category_name && <small>{contact.category_name}</small>}
             </div>
-            <div className="actions">
-              {/* edit vai ser outra page */}
-              <Link to={`/edit/${contact.id}`}>
-                <img src={edit} alt="Edit" />
-              </Link>
+            <span>{contact.email}</span>
+            <span>{contact.phone}</span>
+          </div>
+          <div className="actions">
+            {/* edit vai ser outra page */}
+            <Link to={`/edit/${contact.id}`}>
+              <img src={edit} alt="Edit" />
+            </Link>
 
-              {/* delete vai ser um button com confirm */}
-              <button type="button">
-                <img src={trash} alt="Delete" />
-              </button>
-            </div>
-          </Card>
-        ))}
-      </ListContainer>
+            {/* delete vai ser um button com confirm */}
+            <button type="button">
+              <img src={trash} alt="Delete" />
+            </button>
+          </div>
+        </Card>
+      ))}
     </Container>
   );
 }
