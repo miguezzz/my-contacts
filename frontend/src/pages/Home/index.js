@@ -26,9 +26,7 @@ export default function ContactsList() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-
-  console.log(contacts);
+  }, []); // dependency array vazio para executar apenas uma vez
 
   return (
     <Container>
@@ -37,7 +35,10 @@ export default function ContactsList() {
       </InputSearchContainer>
 
       <Header>
-        <strong>3 Contatos</strong>
+        <strong>
+          {contacts.length}
+          {contacts.length !== 1 ? ' contatos' : ' contato'}
+        </strong>
         <Link to="/new">Adicionar Contato</Link>
       </Header>
 
@@ -49,28 +50,31 @@ export default function ContactsList() {
           </button>
         </header>
 
-        <Card>
-          <div className="info">
-            <div className="contact-name">
-              <strong>Victor Miguez</strong>
-              <small>instagram</small>
+        {contacts.map((contact) => (
+          <Card key={contact.id}>
+            <div className="info">
+              <div className="contact-name">
+                <strong>{contact.name}</strong>
+                {contact.category_name && (
+                  <small>{contact.category_name}</small>
+                )}
+              </div>
+              <span>{contact.email}</span>
+              <span>{contact.phone}</span>
             </div>
-            <span>victor@dev.com</span>
-            <span>(21) 99999-9999</span>
-          </div>
+            <div className="actions">
+              {/* edit vai ser outra page */}
+              <Link to={`/edit/${contact.id}`}>
+                <img src={edit} alt="Edit" />
+              </Link>
 
-          <div className="actions">
-            {/* edit vai ser outra page */}
-            <Link to="/edit/123">
-              <img src={edit} alt="Edit" />
-            </Link>
-
-            {/* delete vai ser um button com confirm */}
-            <button type="button">
-              <img src={trash} alt="Delete" />
-            </button>
-          </div>
-        </Card>
+              {/* delete vai ser um button com confirm */}
+              <button type="button">
+                <img src={trash} alt="Delete" />
+              </button>
+            </div>
+          </Card>
+        ))}
       </ListContainer>
     </Container>
   );
