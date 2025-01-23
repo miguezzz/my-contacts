@@ -15,6 +15,8 @@ import trash from '../../assets/images/icons/trash.svg';
 
 import Loader from '../../components/Loader';
 
+import ContactsService from '../../services/ContactsService';
+
 export default function ContactsList() {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderBy] = useState('asc');
@@ -35,15 +37,10 @@ export default function ContactsList() {
 
   useEffect(() => {
     async function loadContacts() {
-      setIsLoading(true);
-
-      const response = await fetch(
-        `http://localhost:3001/contacts?orderBy=${orderBy}`,
-      );
-
       try {
-        const json = await response.json();
-        setContacts(json);
+        setIsLoading(true);
+        const contactsList = await ContactsService.listContacts(orderBy);
+        setContacts(contactsList);
       } catch (error) {
         console.log('error', error);
       } finally {
