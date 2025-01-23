@@ -52,6 +52,8 @@ export default function ContactsList() {
     }
 
     loadContacts();
+
+    return () => console.log('cleanup');
   }, [orderBy]); // dependency array monitorando a mudança de ordenação
 
   function handleToggleOrderBy() {
