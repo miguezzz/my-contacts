@@ -1,10 +1,13 @@
 class HttpClient {
-  async get(url) {
-    const response = await fetch(url);
+  constructor(baseUrl) {
+    this.baseUrl = baseUrl;
+  }
+
+  async get(path) {
+    const response = await fetch(`${this.baseUrl}${path}`);
 
     return response.json();
   }
 }
 
-// singleton
-export default new HttpClient();
+export default HttpClient;
