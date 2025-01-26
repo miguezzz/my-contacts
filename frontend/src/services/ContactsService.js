@@ -1,10 +1,8 @@
+import HttpClient from './utils/HttpClient';
+
 class ContactService {
   async listContacts(orderBy = 'asc') {
-    const response = await fetch(
-      `http://localhost:3001/contacts?orderBy=${orderBy}`,
-    );
-
-    return response.json();
+    return HttpClient.get(`http://localhost:3001/contacts?orderBy=${orderBy}`);
   }
 }
 
