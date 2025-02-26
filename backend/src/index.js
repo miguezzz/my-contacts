@@ -14,4 +14,4 @@ app.use(cors); // usa o middleware CORS para permitir que a aplicação seja ace
 app.use(routes); // usa as rotas definidas no arquivo routes.js
 app.use(errorHandler); // middleware de tratamento de erros
 
-app.listen(3001, () => console.log('Server is running on port 3000'));
+app.listen(3001, () => console.log('Server is running on port 3001'));
