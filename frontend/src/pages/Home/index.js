@@ -41,6 +41,7 @@ export default function ContactsList() {
         setIsLoading(true);
 
         const contactsList = await ContactsService.listContacts(orderBy);
+        console.log('contactsList:', contactsList);
 
         setContacts(contactsList);
       } catch (error) {

@@ -12,11 +12,15 @@ class HttpClient {
       body = await response.json();
     }
 
+    console.log('body:', body);
+
     if (response.ok) {
       return body;
     }
 
-    throw new Error(body.error); // a API retorna um "error" dentro do JSON.
+    throw new Error(
+      body?.error || `${response.status} - ${response.statusText}`, // se body.error for null ou undefined (caso a api n retorne json), retorna a mensagem padrão com status e statusText
+    ); // a API retorna um "error" dentro do JSON.
   }
 }
 
