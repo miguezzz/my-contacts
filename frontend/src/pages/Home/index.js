@@ -45,7 +45,8 @@ export default function ContactsList() {
 
         setContacts(contactsList);
       } catch (error) {
-        console.log('caiu no catch:', error);
+        console.log(error);
+        console.log('response:', error.response);
       } finally {
         setIsLoading(false);
       }
