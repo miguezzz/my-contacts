@@ -7,6 +7,7 @@ import {
   Header,
   ListHeader,
   Card,
+  ErrorContainer,
 } from './styles';
 
 import arrow from '../../assets/images/icons/arrow.svg';
@@ -15,6 +16,7 @@ import trash from '../../assets/images/icons/trash.svg';
 import sad from '../../assets/images/sad.svg';
 
 import Loader from '../../components/Loader';
+import Button from '../../components/Button';
 
 import ContactsService from '../../services/ContactsService';
 
@@ -91,9 +93,14 @@ export default function ContactsList() {
       </Header>
 
       {hasError && (
-        <div>
-          <p>contem erro</p>
-        </div>
+        <ErrorContainer>
+          <img src={sad} alt="Sad Icon" />
+
+          <div className="details">
+            <strong>Ocorreu um erro ao obter os seus contatos!</strong>
+            <Button type="button">Tente novamente</Button>
+          </div>
+        </ErrorContainer>
       )}
 
       {filteredContacts.length > 0 && (
