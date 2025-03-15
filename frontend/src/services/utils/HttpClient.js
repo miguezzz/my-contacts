@@ -14,8 +14,6 @@ class HttpClient {
       body = await response.json();
     }
 
-    console.log('body:', body);
-
     if (response.ok) {
       return body;
     }
