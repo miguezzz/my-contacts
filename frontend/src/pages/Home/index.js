@@ -12,6 +12,7 @@ import {
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
+import sad from '../../assets/images/sad.svg';
 
 import Loader from '../../components/Loader';
 
@@ -22,6 +23,7 @@ export default function ContactsList() {
   const [orderBy, setOrderBy] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   const filteredContacts = useMemo(
     () =>
@@ -41,12 +43,12 @@ export default function ContactsList() {
         setIsLoading(true);
 
         const contactsList = await ContactsService.listContacts(orderBy);
-        console.log('contactsList:', contactsList);
 
         setContacts(contactsList);
       } catch (error) {
+        setHasError(true);
         console.log(error);
-        console.log('response:', error.response);
+        console.log('response:', error.response.statusText);
       } finally {
         setIsLoading(false);
       }
@@ -78,13 +80,21 @@ export default function ContactsList() {
         />
       </InputSearchContainer>
 
-      <Header>
-        <strong>
-          {filteredContacts.length}
-          {filteredContacts.length !== 1 ? ' contatos' : ' contato'}
-        </strong>
+      <Header hasError={hasError}>
+        {!hasError && (
+          <strong>
+            {filteredContacts.length}
+            {filteredContacts.length !== 1 ? ' contatos' : ' contato'}
+          </strong>
+        )}
         <Link to="/new">Adicionar Contato</Link>
       </Header>
+
+      {hasError && (
+        <div>
+          <p>contem erro</p>
+        </div>
+      )}
 
       {filteredContacts.length > 0 && (
         <ListHeader orderBy={orderBy}>
