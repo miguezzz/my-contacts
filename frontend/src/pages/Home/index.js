@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -39,7 +39,7 @@ export default function ContactsList() {
     [contacts, searchTerm],
   );
 
-  async function loadContacts() {
+  const loadContacts = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -54,14 +54,13 @@ export default function ContactsList() {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [orderBy]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     loadContacts();
 
     return () => console.log('cleanup');
-  }, [orderBy]); // dependency array monitorando a mudança de ordenação
+  }, [loadContacts]); // dependency array monitorando a mudança de ordenação
 
   function handleToggleOrderBy() {
     setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
