@@ -18,4 +18,10 @@ export default styled.select`
     // quando o select ganha foco, a borda apenas ganha cor
     border: 2px solid ${({ theme }) => theme.colors.primary.main};
   }
+
+  &[disabled] {
+    background: ${({ theme }) => theme.colors.gray[100]};
+    border: ${({ theme }) => theme.colors.gray[200]};
+    cursor: not-allowed;
+  }
 `;
