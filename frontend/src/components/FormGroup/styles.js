@@ -20,5 +20,11 @@ export const Container = styled.div`
 
   .form-item {
     position: relative; /* Para o loader ficar em relação a esse elemento */
+
+    .loader {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+    }
   }
 `;

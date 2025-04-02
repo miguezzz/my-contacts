@@ -24,12 +24,8 @@ const dash4 = keyframes`
 `;
 
 export const StyledSpinner = styled.div`
-  position: absolute; /* Absolute em relação ao relative pai */
-  top: 7px;
-  right: 16px;
-
   svg {
-      width: 2.5em;
+      width: ${({ size }) => `${size}px`};
       transform-origin: center;
       animation: ${rotate4} 2s linear infinite;
     }

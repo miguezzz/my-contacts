@@ -1,6 +1,7 @@
 import ReactDom from 'react-dom';
 
 import { Overlay } from './styles';
+import Spinner from '../Spinner';
 
 export default function Loader({ isLoading }) {
   if (!isLoading) {
@@ -9,12 +10,7 @@ export default function Loader({ isLoading }) {
 
   return ReactDom.createPortal(
     <Overlay>
-      <div className="loader">
-        <svg viewBox="25 25 50 50">
-          <title>Loading...</title>
-          <circle r="20" cy="50" cx="50" />
-        </svg>
-      </div>
+      <Spinner size={90} />
     </Overlay>,
     document.getElementById('loader-root'),
   );
