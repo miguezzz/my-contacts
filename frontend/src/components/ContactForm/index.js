@@ -12,11 +12,11 @@ import Input from '../Input';
 import Select from '../Select';
 import Button from '../Button';
 
-export default function ContactForm({ buttonLabel }) {
+export default function ContactForm({ buttonLabel, onSubmit }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [category, setCategory] = useState('');
+  const [categoryId, setCategoryId] = useState('');
   const [categories, setCategories] = useState([]);
   const [isLoadingCategories, setIsLoadingCategories] = useState(true);
 
@@ -70,11 +70,18 @@ export default function ContactForm({ buttonLabel }) {
   function handleSubmit(event) {
     event.preventDefault(); // previne o comportamento padrão do formulário (recarregar a página)
 
+    onSubmit({
+      name,
+      email,
+      phone: phone.replace(/\D/g, ''),
+      categoryId,
+    });
+
     console.log({
       name,
       email,
       phone: phone.replace(/\D/g, ''),
-      category,
+      categoryId,
     });
   }
 
@@ -111,8 +118,8 @@ export default function ContactForm({ buttonLabel }) {
 
       <FormGroup isLoading={isLoadingCategories}>
         <Select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          value={categoryId}
+          onChange={(e) => setCategoryId(e.target.value)}
           disabled={isLoadingCategories}
         >
           <option value="">Sem categoria</option>
