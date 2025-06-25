@@ -5,31 +5,38 @@ class HttpClient {
     this.baseUrl = baseUrl;
   }
 
-  async get(path) {
-    const response = await fetch(`${this.baseUrl}${path}`);
-
-    let body = null;
-    const contentType = response.headers.get('Content-Type');
-    if (contentType.includes('application/json')) {
-      body = await response.json();
-    }
-
-    if (response.ok) {
-      return body;
-    }
-
-    throw new APIError(response, body); // a APIError é quem vai lidar com a criação da mensagem de erro
+  get(path, options) {
+    return this.makeRequest(path, {
+      method: 'GET',
+      headers: options?.headers,
+    });
   }
 
-  async post(path, body) {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
+  post(path, options) {
+    return this.makeRequest(path, {
+      method: 'POST',
+      body: options?.body,
+      headers: options?.headers,
     });
+  }
+
+  async makeRequest(path, options) {
+    const headers = new Headers();
+
+    if (options.body) {
+      headers.append('Content-Type', 'application/json');
+    }
+
+    if (options.headers) {
+      Object.keys(options.headers).forEach((key) => {
+        headers.append(key, options.headers[key]);
+      })
+    }
 
     const response = await fetch(`${this.baseUrl}${path}`, {
-      method: 'POST',
+      method: options.method,
       headers: headers,
-      body: JSON.stringify(body),
+      body: JSON.stringify(options.body),
     });
 
     let responseBody = null;

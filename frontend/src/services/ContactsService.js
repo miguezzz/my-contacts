@@ -10,7 +10,14 @@ class ContactsService {
   }
 
   async createContact(formData) {
-    return this.httpClient.post('/contacts', formData);
+    return this.httpClient.post('/contacts', {
+      body: formData,
+      /*
+      headers: {
+        Authorization: `Bearer ${token}`, // Se precisar de autenticação
+      }
+      */
+    });
   }
 }
 
