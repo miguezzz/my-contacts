@@ -3,8 +3,8 @@ import ContactForm from '../../components/ContactForm';
 import ContactsService from '../../services/ContactsService';
 
 export default function NewContact() {
-  try {
-    async function handleSubmit(formData) {
+  async function handleSubmit(formData) {
+    try {
       const contact = {
         name: formData.name,
         email: formData.email,
@@ -15,10 +15,10 @@ export default function NewContact() {
       const response = await ContactsService.createContact(contact);
 
       console.log(response);
+    } catch (error) {
+      console.error('Erro ao cadastrar contato:', error);
+      alert('Erro ao cadastrar contato');
     }
-    // biome-ignore lint/correctness/noUnreachable: <explanation>
-  } catch {
-    alert('Erro ao cadastrar contato');
   }
 
   return (
