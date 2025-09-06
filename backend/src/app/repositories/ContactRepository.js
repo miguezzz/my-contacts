@@ -36,7 +36,7 @@ class ContactRepository {
 
   // retorna um contato pelo email
   async findByEmail(email) {
-    const [row] = await db.query('SELECT * FROM contacts WHERE email = $1', [
+    const [row] = await db.query('SELECT * FROM contacts WHERE email = $1 LIMIT 1', [
       email,
     ]);
     return row;
