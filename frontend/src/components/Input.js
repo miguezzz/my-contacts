@@ -25,4 +25,11 @@ export default styled.input`
     color: ${theme.colors.danger.main};
     border-color: ${theme.colors.danger.main} !important;
   `}
+
+  &[disabled] {
+    background: ${({ theme }) => theme.colors.gray[100]};
+    border: ${({ theme }) => theme.colors.gray[200]};
+    cursor: not-allowed;
+    opacity: 1;
+  }
 `;
